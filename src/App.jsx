@@ -4,21 +4,23 @@ import logo from "./image/freecodecamp.png";
 import Boton from "./componentes/Boton";
 import Pantalla from "./componentes/Pantalla";
 import BotonClear from "./componentes/BotonClear";
- 
+
 import { useState } from "react";
-import {evaluate} from "mathjs"; /*para evualuar lo que hay en la pantalla de la calculadora */
+import { evaluate } from "mathjs"; /*para evualuar lo que hay en la pantalla de la calculadora */
 
 function App() {
+  const [input, setInput] = useState("");
 
-  const [input, setInput] = useState('');
-
-  const agregarInput = (val) =>{
-    setInput(input+val);
+  const agregarInput = (val) => {
+    setInput(input + val);
   };
-  const calcularResultado = () =>{
-    setInput(evaluate(input));
-  }
-
+  const calcularResultado = () => {
+    if (input) {
+      setInput(evaluate(input));
+    } else {
+      alert("Por favor ingrese valores para la operacion");
+    }
+  };
 
   return (
     <div className="App">
@@ -29,10 +31,10 @@ function App() {
         <Pantalla input={input} />
 
         <div className="fila">
-          <Boton manejarClic={agregarInput} >1 </Boton>
-          <Boton manejarClic={agregarInput}>2 </Boton>
-          <Boton manejarClic={agregarInput}>3 </Boton>
-          <Boton manejarClic={agregarInput}>+ </Boton>
+          <Boton manejarClic={agregarInput}>1</Boton>
+          <Boton manejarClic={agregarInput}>2</Boton>
+          <Boton manejarClic={agregarInput}>3</Boton>
+          <Boton manejarClic={agregarInput}>+</Boton>
         </div>
 
         <div className="fila">
@@ -57,9 +59,8 @@ function App() {
         </div>
 
         <div className="fila">
-          <BotonClear manejarClear={()=>setInput('')}>Clear</BotonClear>
+          <BotonClear manejarClear={() => setInput("")}>Clear</BotonClear>
         </div>
-
       </div>
     </div>
   );
